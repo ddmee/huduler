@@ -1,0 +1,32 @@
+actions:
+  - name: "Morning Weigh-In"
+    description: "Weigh yourself on the bathroom scales, first thing in the morning, before anything else."
+    repeat: "Everyday"
+    order: "1"
+    time: ""
+
+
+  - name: ""
+    description: ""
+    repeat: ""
+    order: ""
+    time: ""
+
+  - name: "Walk the dog"
+    description: "Bring the dog for an hour long walk in the park."
+    repeat: "Everyday"
+    order: ""
+    time: "10:30"
+
+
+  - name: "Feed the dog"
+    description: "Feed the dog his morning meal."
+    repeat: "Everyday"
+    order: ""
+    time: "08:30"
+
+  - name: "Project work"
+    description: "Set aside time to work on your projects."
+    repeat: "EVERyday"
+    order: ""
+    time: ""
