@@ -1,6 +1,6 @@
 # Huduler
 
-Human scheduler. Create a (master) list of re-occuring actions and generate daily action sheets from that master list.
+Human scheduler. Create a (master) list of reoccurring actions and generate daily action sheets from that master list.
 
 ## Innovocation
 
