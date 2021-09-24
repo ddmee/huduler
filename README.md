@@ -7,9 +7,12 @@ Human scheduler. Create a (master) list of reoccurring actions and generate dail
 ```shell
 cd huduler
 pipenv install
-pipenv run python -m huduler actions.yaml > today.markdown
+pipenv run python -m huduler examples/actions.yaml > examples/today.markdown
 ```
 
+## Examples of output
+
+See `examples/` directory, of a daily sheet output as markdown produced from the actions.yaml.
 
 ## Create an Actions list
 
