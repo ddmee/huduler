@@ -38,7 +38,7 @@ def ordered_actions(actions:list[dict]) -> list[dict]:
     Drops action that have no order value.
     """
     acts_with_order = filter(lambda act: act.get('order'), actions)
-    return sorted(acts_with_order, key=lambda act: act['order'])
+    return sorted(acts_with_order, key=lambda act: int(act['order']))
 
 
 def time_ordered_actions(actions:list[dict]) -> list[dict]:
@@ -54,6 +54,18 @@ def orderless_actions(actions:list[dict]) -> list[dict]:
     return list(filter(lambda act: not(act.get('time') or act.get('order')), actions))
 
 
+def action_common_mkd_slug(action: dict) -> str:
+    """Get the common markdown slug for an action.
+    """
+    return dedent(f"""
+    {action.get('description')}
+
+    - Repeats: {action.get('repeat')}
+    - Completion score: {action.get('completion_score')}
+    - Failure score: {action.get('failure_score')}
+    """)
+
+
 def day_sheet_markdown(day:date,
                        ordered_actions: list[dict]=None,
                        time_ordered_actions: list[dict]=None,
@@ -63,38 +75,32 @@ def day_sheet_markdown(day:date,
     mkd = f"""
     # {day.strftime('%A')} {day.isoformat()}
 
+    ## Ordered actions
     """
     mkd = dedent(mkd)
 
     for count, action in enumerate(ordered_actions, start=1):
-        sliver = f"""
-        ## {count}. {action.get('name')}
+        sliver = f"\n### {count}. {action.get('name')}\n"
+        sliver += action_common_mkd_slug(action=action)
+        mkd += sliver
 
-        {action.get('description')}
-
-        Repeats: {action.get('repeat')}
-        """
-        mkd += dedent(sliver)
+    mkd += dedent("""
+    ## Time actions
+    """)
 
     for action in time_ordered_actions:
-        sliver = f"""
-        ## {action['time']}HR: {action.get('name')}
+        sliver = f"\n### {action['time']}HR: {action.get('name')}\n"
+        sliver += action_common_mkd_slug(action=action)
+        mkd += sliver
 
-        {action.get('description')}
-
-        Repeats: {action.get('repeat')}
-        """
-        mkd += dedent(sliver)
+    mkd += dedent("""
+    ## Other actions
+    """)
 
     for action in orderless_actions:
-        sliver = f"""
-        ## {action.get('name')}
-
-        {action.get('description')}
-
-        Repeats: {action.get('repeat')}
-        """
-        mkd += dedent(sliver)
+        sliver = f"\n### {action.get('name')}\n"
+        sliver += action_common_mkd_slug(action=action)
+        mkd += sliver
 
     return mkd
 

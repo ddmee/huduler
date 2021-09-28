@@ -45,6 +45,8 @@ actions:
     repeat: "Everyday"
     order: "1"
     time: ""
+    completion_score: 10
+    failure_score: 5
 
   - name: ""
     description: ""
@@ -70,8 +72,48 @@ The time-ordered action list looks at the 'time' key to determine an actions pla
 
 The orderless action list is for any actions that are due on this day but have no time or priority order.
 
+## Completion and failure scores
+
+You can assign completion and failure scores to an action. This allows you to build up an action score over time, of how well you are sticking to the actions. Generally, we want to reward ourselves more than punishing ourselves, so it's probably better to make the completition scores a little bit larger than the failure scores, tilting the scoring in your favour.
+
+For example:
+
+```yaml
+
+  - name: "Black Coffee"
+    description: "Continue morning fast. Stop coffee at noon."
+    repeat: "Everyday"
+    order: "2"
+    time: ""
+    completion_score: 10
+    failure_score: 5
+
+  - name: "No junk food"
+    description: ""
+    repeat: "everyday"
+    order: ""
+    time: ""
+    completion_score: 15
+    failure_score: 5
+
+  - name: "Avoid reading the news"
+    description: "It's too antagonising."
+    repeat: "everyday"
+    order: ""
+    time: ""
+    completion_score: 5
+    failure_score: 0
+
+```
+
+The completion scores above value some actions more than others. And some actions are entirely optional, like a bonus score, that if you don't complete have no negative impact.
+
 ## Keys
 
-Order: the lower the number, the higher the priority. Makes the action appear in the list of ordered actions.
+order: the lower the number, the higher the priority. Makes the action appear in the list of ordered actions.
 
-Time: the time of day the action is to be carried out. Note, please use 24hour iso-format for the time. E.g. '23:53' or '09:06'.
+time: the time of day the action is to be carried out. Note, please use 24hour iso-format for the time. E.g. '23:53' or '09:06'.
+
+completion_score: the number of points you gain if you complete this action today
+
+failure_score: the number of points you loose if you fail this action today.
